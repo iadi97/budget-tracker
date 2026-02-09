@@ -1,9 +1,11 @@
 import Header from "../components/Header";
-import SummaryCards from "../components/SummaryCards";
 import SectionBox from "../components/SectionBox";
+import SummaryCards from "../components/SummaryCards";
+import FinancialOverview from "../components/FinancialOverview";
 
 import MonthSelector from "../months/MonthSelector";
 import { useMonths } from "../hooks/useMonths";
+import { useTotals } from "../hooks/useTotals";
 
 import IncomeTable from "../income/IncomeTable";
 import BillsTable from "../bills/BillsTable";
@@ -15,7 +17,9 @@ export default function Dashboard() {
   const { months, activeMonth, setActiveMonth, createMonth, loading } =
     useMonths();
 
-  if (loading) return <div className="p-6">Loading months...</div>;
+  const totals = useTotals(activeMonth?.id);
+
+  if (loading) return <div className="p-6">Loading...</div>;
 
   return (
     <div className="max-w-7xl mx-auto p-6">
@@ -28,16 +32,30 @@ export default function Dashboard() {
         onCreate={createMonth}
       />
 
-      <SummaryCards />
+      <SummaryCards
+        income={totals.income.actual}
+        expenses={totals.expenses.actual}
+        bills={totals.bills.actual}
+        savings={totals.savings.actual}
+        debt={totals.debt.actual}
+      />
 
       <SectionBox title="Financial Overview">
-        Overview table coming next
+        <FinancialOverview
+          rows={[
+            { label: "Income", ...totals.income },
+            { label: "Expenses", ...totals.expenses },
+            { label: "Bills", ...totals.bills },
+            { label: "Savings", ...totals.savings },
+            { label: "Debt", ...totals.debt }
+          ]}
+        />
       </SectionBox>
 
       <div className="grid grid-cols-3 gap-6">
-        <SectionBox title="Amount Left to Spend">Chart</SectionBox>
-        <SectionBox title="Cash Flow">Chart</SectionBox>
-        <SectionBox title="Allocation Summary">Chart</SectionBox>
+        <SectionBox title="Amount Left to Spend">Chart next</SectionBox>
+        <SectionBox title="Cash Flow">Chart next</SectionBox>
+        <SectionBox title="Allocation Summary">Chart next</SectionBox>
       </div>
 
       <SectionBox title="Income">
