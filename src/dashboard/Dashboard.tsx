@@ -6,6 +6,7 @@ import MonthSelector from "../months/MonthSelector";
 import { useMonths } from "../hooks/useMonths";
 
 import IncomeTable from "../income/IncomeTable";
+import BillsTable from "../bills/BillsTable";
 
 export default function Dashboard() {
   const {
@@ -56,20 +57,12 @@ export default function Dashboard() {
       </SectionBox>
 
       <SectionBox title="Bills">
-        Coming next
+        <BillsTable monthId={activeMonth?.id} />
       </SectionBox>
 
-      <SectionBox title="Expenses">
-        Coming next
-      </SectionBox>
-
-      <SectionBox title="Savings">
-        Coming next
-      </SectionBox>
-
-      <SectionBox title="Debt">
-        Coming next
-      </SectionBox>
+      <SectionBox title="Expenses">Coming next</SectionBox>
+      <SectionBox title="Savings">Coming next</SectionBox>
+      <SectionBox title="Debt">Coming next</SectionBox>
     </div>
   );
 }
