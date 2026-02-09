@@ -1,8 +1,11 @@
 import Header from "../components/Header";
 import SummaryCards from "../components/SummaryCards";
 import SectionBox from "../components/SectionBox";
+
 import MonthSelector from "../months/MonthSelector";
 import { useMonths } from "../hooks/useMonths";
+
+import IncomeTable from "../income/IncomeTable";
 
 export default function Dashboard() {
   const {
@@ -35,16 +38,38 @@ export default function Dashboard() {
       </SectionBox>
 
       <div className="grid grid-cols-3 gap-6">
-        <SectionBox title="Amount Left to Spend">Donut chart</SectionBox>
-        <SectionBox title="Cash Flow">Bar chart</SectionBox>
-        <SectionBox title="Allocation Summary">Pie chart</SectionBox>
+        <SectionBox title="Amount Left to Spend">
+          Donut chart placeholder
+        </SectionBox>
+
+        <SectionBox title="Cash Flow">
+          Bar chart placeholder
+        </SectionBox>
+
+        <SectionBox title="Allocation Summary">
+          Pie chart placeholder
+        </SectionBox>
       </div>
 
-      <SectionBox title="Income" />
-      <SectionBox title="Bills" />
-      <SectionBox title="Expenses" />
-      <SectionBox title="Savings" />
-      <SectionBox title="Debt" />
+      <SectionBox title="Income">
+        <IncomeTable monthId={activeMonth?.id} />
+      </SectionBox>
+
+      <SectionBox title="Bills">
+        Coming next
+      </SectionBox>
+
+      <SectionBox title="Expenses">
+        Coming next
+      </SectionBox>
+
+      <SectionBox title="Savings">
+        Coming next
+      </SectionBox>
+
+      <SectionBox title="Debt">
+        Coming next
+      </SectionBox>
     </div>
   );
 }
