@@ -7,19 +7,15 @@ import { useMonths } from "../hooks/useMonths";
 
 import IncomeTable from "../income/IncomeTable";
 import BillsTable from "../bills/BillsTable";
+import ExpensesTable from "../expenses/ExpensesTable";
+import SavingsTable from "../savings/SavingsTable";
+import DebtTable from "../debt/DebtTable";
 
 export default function Dashboard() {
-  const {
-    months,
-    activeMonth,
-    setActiveMonth,
-    createMonth,
-    loading
-  } = useMonths();
+  const { months, activeMonth, setActiveMonth, createMonth, loading } =
+    useMonths();
 
-  if (loading) {
-    return <div className="p-6">Loading months...</div>;
-  }
+  if (loading) return <div className="p-6">Loading months...</div>;
 
   return (
     <div className="max-w-7xl mx-auto p-6">
@@ -35,21 +31,13 @@ export default function Dashboard() {
       <SummaryCards />
 
       <SectionBox title="Financial Overview">
-        Overview table placeholder
+        Overview table coming next
       </SectionBox>
 
       <div className="grid grid-cols-3 gap-6">
-        <SectionBox title="Amount Left to Spend">
-          Donut chart placeholder
-        </SectionBox>
-
-        <SectionBox title="Cash Flow">
-          Bar chart placeholder
-        </SectionBox>
-
-        <SectionBox title="Allocation Summary">
-          Pie chart placeholder
-        </SectionBox>
+        <SectionBox title="Amount Left to Spend">Chart</SectionBox>
+        <SectionBox title="Cash Flow">Chart</SectionBox>
+        <SectionBox title="Allocation Summary">Chart</SectionBox>
       </div>
 
       <SectionBox title="Income">
@@ -60,9 +48,17 @@ export default function Dashboard() {
         <BillsTable monthId={activeMonth?.id} />
       </SectionBox>
 
-      <SectionBox title="Expenses">Coming next</SectionBox>
-      <SectionBox title="Savings">Coming next</SectionBox>
-      <SectionBox title="Debt">Coming next</SectionBox>
+      <SectionBox title="Expenses">
+        <ExpensesTable monthId={activeMonth?.id} />
+      </SectionBox>
+
+      <SectionBox title="Savings">
+        <SavingsTable monthId={activeMonth?.id} />
+      </SectionBox>
+
+      <SectionBox title="Debt">
+        <DebtTable monthId={activeMonth?.id} />
+      </SectionBox>
     </div>
   );
 }
