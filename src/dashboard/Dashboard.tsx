@@ -13,11 +13,21 @@ import ExpensesTable from "../expenses/ExpensesTable";
 import SavingsTable from "../savings/SavingsTable";
 import DebtTable from "../debt/DebtTable";
 
+import AmountLeftChart from "../charts/AmountLeftChart";
+import CashFlowChart from "../charts/CashFlowChart";
+import AllocationChart from "../charts/AllocationChart";
+
 export default function Dashboard() {
   const { months, activeMonth, setActiveMonth, createMonth, loading } =
     useMonths();
 
   const totals = useTotals(activeMonth?.id);
+
+  const outflowActual =
+    totals.bills.actual +
+    totals.expenses.actual +
+    totals.savings.actual +
+    totals.debt.actual;
 
   if (loading) return <div className="p-6">Loading...</div>;
 
@@ -53,9 +63,25 @@ export default function Dashboard() {
       </SectionBox>
 
       <div className="grid grid-cols-3 gap-6">
-        <SectionBox title="Amount Left to Spend">Chart next</SectionBox>
-        <SectionBox title="Cash Flow">Chart next</SectionBox>
-        <SectionBox title="Allocation Summary">Chart next</SectionBox>
+        <SectionBox title="Amount Left to Spend">
+          <AmountLeftChart
+            incomeActual={totals.income.actual}
+            outflowActual={outflowActual}
+          />
+        </SectionBox>
+
+        <SectionBox title="Cash Flow">
+          <CashFlowChart totals={totals} />
+        </SectionBox>
+
+        <SectionBox title="Allocation Summary">
+          <AllocationChart
+            expensesActual={totals.expenses.actual}
+            billsActual={totals.bills.actual}
+            savingsActual={totals.savings.actual}
+            debtActual={totals.debt.actual}
+          />
+        </SectionBox>
       </div>
 
       <SectionBox title="Income">
